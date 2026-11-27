@@ -35,10 +35,12 @@ Pronosticar las **ventas mensuales totales de los próximos 12 meses** mediante 
 - Modelo final reentrenado con 2014–2017 para pronosticar 2018.
 
 ## 8. Equipo y roles (TDSP)
+Proyecto individual: un solo integrante asume los dos roles TDSP.
+
 | Rol | Integrante | Responsabilidades |
 |---|---|---|
-| Project Lead / Solution Architect | [Nombre] | Charter, tablero ágil, Azure ML, despliegue, Power BI |
-| Data Scientist | [Nombre] | Datos, EDA, modelos y evaluación |
+| Project Lead / Solution Architect | Andres Gomez | Charter, tablero ágil, Azure ML, despliegue, Power BI |
+| Data Scientist | Andres Gomez | Datos, EDA, modelos y evaluación |
 
 ## 9. Arquitectura
 Google Sheets (CSV) → Google Colab / Python (EDA y modelos) → GitHub (versionado) → Azure ML (dataset versionado, AutoML, registro de modelo y endpoint) → Power BI (consumo del pronóstico).
