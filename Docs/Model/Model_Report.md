@@ -67,8 +67,29 @@ La meta de MAPE no se alcanzó por la alta volatilidad mensual y la historia cor
 
 **Observación:** Holt-Winters proyecta un crecimiento conservador (+6%), mientras el SARIMA estima ~20% anual. Se recomienda planear con escenarios (conservador vs optimista).
 
-## 7. Lecciones aprendidas
+## 7. Benchmark en Azure ML – AutoML (retador)
+- **Configuración:** previsión de series temporales, objetivo `Sales`, tiempo `Month`, frecuencia mensual, horizonte 12, métrica primaria NRMSE, validación cruzada 3 pliegues (paso 1), descomposición STL (estacionalidad + tendencia), feriados de EE. UU., sin rezagos ni ventanas móviles (por historia corta), ensambles habilitados, límite de 30 min, cómputo serverless Standard_DS3_v2.
+- **Datos:** `ventas_train_v2` (2014–2016) y `ventas_test_2017` (2017), registrados y versionados como Data Assets.
+- **Exploración:** más de 40 modelos; lideran ElasticNet y ensambles; los modelos de árboles (RandomForest, ExtraTrees, LightGBM, XGBoost) quedan al final, coherente con su incapacidad de extrapolar tendencia.
+- **Mejor modelo:** StackEnsemble (iteración 39).
+
+| Métrica | AutoML – validación cruzada (2014–2016) | AutoML – prueba 2017 | Holt-Winters mult. – prueba 2017 |
+|---|---|---|---|
+| MAPE % | 18,85 | **30,06** | **20,77** |
+| MAE | 6.989 | 13.641 | 12.432 |
+| RMSE | 8.931 | 16.587 | 16.384 |
+| R² | 0,79 | 0,59 | – |
+| NRMSE | 0,097 | 0,179 | – |
+
+**Análisis:** el StackEnsemble luce excelente en validación cruzada (MAPE 18,9%) pero en el set de prueba independiente cae a 30,1%, peor que Holt-Winters (20,8%) e incluso que el ingenuo estacional (24,5%). Es **sobreajuste**, advertido por la propia plataforma ("StackEnsemble ... might run into overfitting"). Seleccionar por la métrica de validación habría llevado al peor modelo; el set de prueba independiente evitó esa decisión.
+
+## 8. Decisión final
+- **Modelo campeón:** Holt-Winters multiplicativo (Colab) → se despliega.
+- **Modelo retador:** AutoML StackEnsemble (Azure ML) → se registra como referencia, no se despliega a producción.
+
+## 9. Lecciones aprendidas
 - Definir el criterio de selección antes de ver resultados evita sesgos.
 - Con pocos datos, los modelos simples y estacionales compiten igual o mejor que modelos complejos.
 - El MASE debe escalarse con el mismo periodo de evaluación o complementarse con la comparación directa contra el baseline.
+- Una métrica de validación cruzada favorable no garantiza buen desempeño futuro: siempre contrastar con un set de prueba independiente (caso AutoML).
 - Mejoras futuras: ensamble de Holt-Winters aditivo + multiplicativo, variables exógenas (descuentos, promociones) y más historia.
