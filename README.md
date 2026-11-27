@@ -23,5 +23,4 @@ Proyecto de series de tiempo para predecir las ventas mensuales de una tienda de
 Python (Google Colab) · Azure Machine Learning · Power BI · GitHub (versionado y tablero ágil)
 
 ## Equipo
-- Andres Gomez – Project Lead / Solution Architect
-- Andres Gomez – Data Scientist
+Proyecto individual: **Andres Gomez** asume los roles TDSP de Project Lead / Solution Architect y Data Scientist.
