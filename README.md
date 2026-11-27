@@ -7,9 +7,15 @@ Proyecto de series de tiempo para predecir las ventas mensuales de una tienda de
 |---|---|---|
 | 1. Entendimiento del negocio | ✅ Completa | `Docs/Project/Charter.md` |
 | 2. Adquisición y entendimiento de datos | ✅ Completa | `Docs/Data_Report/`, `Code/01_...`, `Sample_Data/` |
-| 3. Modelado | ⏳ En curso | `Docs/Model/Model_Report.md`, `Code/02_Modeling/` |
-| 4. Despliegue | ⏳ Pendiente | `Code/03_Deployment/` |
-| 5. Aceptación del cliente | ⏳ Pendiente | `Docs/Project/Informe_Final.md` |
+| 3. Modelado | ✅ Completa | `Docs/Model/Model_Report.md`, `Code/02_Modeling/` |
+| 4. Despliegue | ✅ Completa | `Code/03_Deployment/`, Azure ML Model Registry |
+| 5. Aceptación del cliente | ✅ Completa | `Docs/Project/Informe_Final.md` |
+
+## Resultados clave
+- **Modelo campeón:** Holt-Winters multiplicativo · MAPE 2017 = 20,8% · supera al baseline en 19,6% (MAE).
+- **Retador AutoML (Azure ML):** StackEnsemble · MAPE validación 18,9% → prueba 30,1% (sobreajuste).
+- **Pronóstico 2018:** USD 777.728 (+6,1% vs 2017); picos en septiembre, noviembre y diciembre.
+- **Despliegue:** pipeline batch mensual + modelos registrados en Azure ML + dashboard Power BI.
 
 ## Estructura
 - `Docs/Project` – Project Charter e informe final
